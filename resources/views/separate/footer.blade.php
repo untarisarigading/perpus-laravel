@@ -4,6 +4,6 @@
       Anything you want
   </div>
   <!-- Default to the left -->
-  <strong>Copyright &copy; 2023 <a href="https://adminlte.io">jjazeyy_</a>.</strong> All rights
+  <strong>Copyright &copy; 2023 <a href="https://adminite.io">Ashma Untari</a>.</strong> All rights
   reserved.
 </footer>

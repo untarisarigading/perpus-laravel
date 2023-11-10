@@ -1,108 +1,38 @@
 @extends('layouts.master')
-
-@section('title', 'Data petugas')
-
-
+@section('title','Petugas')
 @section('content')
-
-@push('css')
-<link rel="stylesheet" href="{{ asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-@endpush
-
-<!-- Main content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Data Petugas</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Data Petugas</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+{{dd($petugas)}}
+<div class="container">
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10px">No</th>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Jabatan</th>
+            <th>No Telp</th>
+            <th>Alamat</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+            @forelse ($petugas as $key=>$item)    
+            <tr>
+              <td>{{ $key + 1}}</td>
+              <td>{{ $item->id }}</td>
+              <td>{{ $item->nama_petugas}}</td>
+              <td>{{ $item->jabatan_petugas}}</td>
+              <td>{{ $item->no_telp_petugas}}</td>
+              <td>{{ $item->alamat_petugas}}</td>
+            </tr>
+            @empty
+                <tr>
+                    Data is empty
+                </tr>
+            @endforelse
+        </tbody>
+      </table>
     </div>
-    <!-- /.content-header -->
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Table Data petugas</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <table class="card-header">
-                            <table id="example2" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>id petugas</th>
-                                    <th>Nama petugas</th>
-                                    <th>Jabatan</th>
-                                    <th>Telepon petugas</th>
-                                    <th>Alamat petugas</th>
-                                    <th>Actiom</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($petugas as $key => $value)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $value->id}}</td>
-                                    <td>{{ $value->nama_petugas }}</td>
-                                    <td>{{ $value->jabatan_petugas }}</td>
-                                    <td>{{ $value->no_telp_petugas }}</td>
-                                    <td>{{ $value->alamat_petugas }}</td>
-                                    <td>
-                                        <form action="{{ route('petugas.destroy', $value->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                        <a href="{{ route('petugas.show', $value->id)}}" class="btn-sm btn-info">Show</a>
-                                        <a href="{{ route('petugas.edit', $value->id)}}" class="btn-sm btn-warning">Edit</a>
-                                        <button class="btn-sm btn-danger">Delete</a>
-                                        </form>
-                                    </td>
-                                </tr>
-
-                                @empty
-                                <tr>
-                                    <td>Data Masih Kosong</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.content -->
 </div>
-
 @endsection
-
-
-@push('script')
-<script src="{{ asset('template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('template/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('template/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('template/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('template/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-@endpush

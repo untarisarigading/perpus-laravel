@@ -1,13 +1,13 @@
 @extends('layouts.master')
-@section('title', 'anggota')
-@section('content')
+@section('title','anggota')
+@section('content') 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Detail Anggota</h1>
+                    <h1 class="m-0">DATA ANGGOTA</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -19,7 +19,7 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+{{-- {{dd($anggota)}} --}}
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
@@ -27,68 +27,87 @@
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Data Anggota</h3>
+                            <h3 class="card-title">Form Anggota</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('anggota.update', $anggota[0]->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
+                        <form action="{{route('anggota.store')}}" method="POST">
+                            @csrf 
+                            @method ('PUT') 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="kode_anggota">Kode Anggota</label>
-                                    <input type="text" class="form-control @error('kode') is-invalid @enderror" name="kode" id="kode_anggota" placeholder="Masukan Kode" value="{{ $anggota[0]->kode }}">
+                                    <label for="id">ID Anggota</label>
+                                    <input disabled value="{{ $anggota[0]->id }}" name="id" type="text" class="form-control" id="id" placeholder="Masukkan ID">
+                                </div>
+                                <div class="form-group">
+                                     <label for="kode_anggota">Kode Anggota</label>
+                                    <input name="kode" class="form-control @error('kode') is-invalid @enderror" name="kode" id="kode_anggota" placeholder="Masukan Kode" value="{{ $anggota[0]->kode_anggota }}">
                                     @error('kode')
                                         <div class="alert alert-danger mt-1">{{ $message }}</div>
-                                    @enderror
+                                    @enderror 
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Masukan nama" value="{{ $anggota[0]->nama }}">
+                                    <input value="{{ $anggota[0]->nama_anggota }}" name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Masukan nama" >
                                     @error('nama')
                                         <div class="alert alert-danger mt-1">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="jk">Jenis Kelamin</label>
-                                    <select class="custom-select @error('jk') is-invalid @enderror" name="jk" value="{{ $anggota[0]->jk }}">
-                                        <option selected disabled></option>
-                                        <option value="Laki-laki">LAKI-LAKI</option>
-                                        <option value="perempuan">PEREMPUAN</option>
-                                    </select>
-                                    @error('jk')
+                                    <label for="jk_anggota">Jenis Kelamin</label>
+                                    @if ($anggota[0]->jk_anggota == 'L')
+                                    <div class="custom-control custom-radio">
+                                        <input value="L" class="custom-control-input" type="radio" id="l"
+                                            name="jk_anggota" @error('jk_anggota') is-invalid @enderror name="jk_anggota" value="{{ $anggota[0]->jk_anggota }}">
+                                        <label for="l" class="custom-control-label">Laki-laki</label>
+                                    </div>
+                                    @else 
+                                    <div class="custom-control custom-radio">
+                                        <input value="P" class="custom-control-input" type="radio" id="p"
+                                            name="jk">
+                                        <label for="p" class="custom-control-label">Perempuan</label>
+                                          @error('jk')
                                         <div class="alert alert-danger mt-1">{{ $message }}</div>
-                                    @enderror
+                                        @enderror
+                                    @endif
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Jurusan</label>
-                                    <input type="text" class="form-control @error('jurusan') is-invalid @enderror" name="jurusan" id="jurusan" placeholder="" value="{{ $anggota[0]->jurusan }}">
-                                    @error('jurusan')
+                                    <select name="jurusan" class="custom-select @error('jurusan') is-invalid @enderror"> 
+                                    <option selected>{{ $anggota[0]->jurusan_anggota }}</option>
+                                    <option value="RPL" >RPL</option>
+                                    <option value="DPIB" >DPIB</option>
+                                    <option value="TP" >TP</option>
+                                    <option value="TFLM" >TFLM</option>
+                                    <option value="TEI" >TEI</option>
+                                    <option value="TITL" >TITL</option>
+                                    <option value="TKJ" >TKJ</option>
+                                    </select>
+                                     @error('jurusan')
                                         <div class="alert alert-danger mt-1">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>No. Telepon</label>
+                                   <label>No. Telepon</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                         </div>
-                                        <input type="number" class="form-control" name="no" placeholder="Masukan Angka" value="{{ $anggota[0]->no }}">
-                                    @error('tlp')
+                                        <input value="{{ $anggota[0]->no_telp_anggota }}" type="number" class="form-control" name="no_telp_anggota" placeholder="Masukan Angka" >
+                                    @error('no_telp_anggota')
                                         <div class="alert alert-danger mt-1">{{ $message }}</div>
                                     @enderror
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Alamat</label>
-                                    <textarea class="form-control" rows="3" name="alamat" placeholder="Masukan Alamat">{{ $anggota[0]->alamat }}</textarea>
-                                </div>
+                                        <label>Alamat</label>
+                                        <textarea name="alamat" class="form-control" rows="3" placeholder="Masukan alamat"></textarea>
+                                    </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('anggota.index') }}" class="btn btn-primary">Back</a>
                                 <button type="submit" class="btn btn-warning">Update</button>
                             </div>
                             <!-- /.content -->
                         </form>
-                    </div>
-                    @endsection
+                    </div> 

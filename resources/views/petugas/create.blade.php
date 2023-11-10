@@ -1,19 +1,19 @@
 @extends('layouts.master')
-@section('title', 'petugas')
-@section('content')
+@section('title','petugas')
+@section('content') 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">petugas</h1>
+                    <h1 class="m-0">Petugas</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">petugas/li>
-                    </ol>
+                        <li class="breadcrumb-item active">Petugas</li>
+                    </ol>  
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -30,47 +30,44 @@
                             <h3 class="card-title">Form Petugas</h3>
                         </div>
                         <!-- /.card-header -->
+
                         <!-- form start -->
-                        <form action="{{ route('petugas.store')}}" method="post">
+                        <form action="{{ route('petugas.store')}}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="id">ID Petugas</label>
-                                    <input class="form-control" type="text" name="id" id="id" placeholder="Masukan ID">
-                                </div>
-                                <div class="form-group">
                                     <label for="nama_petugas">Nama Petugas</label>
-                                    <input class="form-control" type="text" name="nama_petugas" id="nama_petugas" placeholder="Masukan Nama">
+                                    <input name="nama" class="form-control" type="text" name="nama_petugas" id="nama_petugas" placeholder="Masukan nama petugas">
                                 </div>
                                 <div class="form-group">
-                                    <label for="jabatan_petugas">Jabatan</label>
-                                    <input class="form-control" type="text" name="jabatan_petugas" id="judul" placeholder="jabatan_petugas">
+                                    <label for="jabatan">Jabatan</label>
+                                    <input name="jabatan" class="form-control" type="text" name="jabatan" id="jabatan" placeholder="Masukan jabatan">
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="no_telp_petugas" name="tlp_petugas" id="no_telp_petugas">telepon petugas</label>
-                                    <input class="form-control" type="text" name="no_telp_petugas" id="no_telp_petugas" placeholder="telepon petugas">
+                                    <label>No. Telepon</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        </div>
+                                        <input name="no" type="number" class="form-control"
+                                            data-inputmask='"mask": "(999) 999-9999"' data-mask placeholder="Masukan angka">
+                                    </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="alamat_petugas" name="alamat_petugas" id="alamat_petugas">alamat petugas</label>
-                                    <input class="form-control" type="text" name="alamat_petugas" id="alamat_petugas" placeholder="alamat">
+                                    <label>Alamat</label>
+                                    <textarea class="form-control" rows="3" placeholder="Masukan alamat"></textarea>
                                 </div>
-
-                            </div>
-
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
                     </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    </form>
                 </div>
-            </div>
+            </div>{{-- form --}}
         </div>
     </div>
-    <!-- /.content -->
+    </div>
+<!-- /.content -->
 </div>
-@endsection
-
-</html>
+@endsection 
